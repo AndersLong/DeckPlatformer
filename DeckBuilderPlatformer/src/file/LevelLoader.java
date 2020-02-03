@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import game.Cycler;
+import game.ID;
 
 public class LevelLoader {
 	
@@ -15,12 +16,28 @@ public class LevelLoader {
 		this.cycler=cycler;
 	}
 	public void loadLevel(String level) {
-		try (Scanner s=new Scanner(new File("levels.txt"))){
+		try (Scanner s=new Scanner(new File("test.txt"))){
 			String line=s.nextLine();
 			while(!line.equals(level)) {
 				line=s.nextLine();
 			}
-			System.out.println(line);
+			for(int i=0;i<10;i++) {
+				line=s.nextLine();
+				String[] bits=line.split(",");
+				for(int j=0;j<bits.length;j++) {
+					switch(Integer.parseInt(bits[j])) {
+					case 0:
+						break;
+					case 1:
+						cycler.addObject(ID.BLOCK, j*32, i*32);
+						break;
+					case 2:
+						cycler.addObject(ID.PLAYER, j*32, i*32);
+						break;
+						
+					}
+				}
+			}
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

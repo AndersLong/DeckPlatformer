@@ -18,11 +18,16 @@ public class Player extends GObject{
 				
 	}
 	public void update() {
-		
+		move();
+		System.out.println(dcol);
 		
 	}
 	public void move() {
-		
+		if(!dcol) {
+			yv++;
+		}
+		x+=xv;
+		y+=yv;
 	}
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.BLUE);

@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /*
  * THE GObject class has the purpose of representing all
@@ -14,6 +15,7 @@ import java.awt.Graphics;
  */
 public abstract class GObject {
 	
+	protected boolean lcol,rcol,ucol,dcol;
 	protected int x,y,w,h,xv,yv;
 	protected ID id;
 		
@@ -55,6 +57,71 @@ public abstract class GObject {
 	public void setId(ID id) {
 		this.id = id;
 	}
+
+	public int getW() {
+		return w;
+	}
+
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	public int getH() {
+		return h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
+
+	public int getXv() {
+		return xv;
+	}
+
+	public void setXv(int xv) {
+		this.xv = xv;
+	}
+
+	public int getYv() {
+		return yv;
+	}
+
+	public void setYv(int yv) {
+		this.yv = yv;
+	}
+
+	public boolean isLcol() {
+		return lcol;
+	}
+
+	public void setLcol(boolean lcol) {
+		this.lcol = lcol;
+	}
+
+	public boolean isRcol() {
+		return rcol;
+	}
+
+	public void setRcol(boolean rcol) {
+		this.rcol = rcol;
+	}
+
+	public boolean isUcol() {
+		return ucol;
+	}
+
+	public void setUcol(boolean ucol) {
+		this.ucol = ucol;
+	}
+
+	public boolean isDcol() {
+		return dcol;
+	}
+
+	public void setDcol(boolean dcol) {
+		this.dcol = dcol;
+	}
+	
 	
 	
 }

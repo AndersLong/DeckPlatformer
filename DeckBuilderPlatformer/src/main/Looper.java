@@ -30,7 +30,7 @@ public class Looper implements Runnable{
 	 * -enumerated values
 	 */
 	
-	public static int scale=2;
+	public static int scale=1;
 	
 	private Button gameButton,
 		helpButton,
@@ -65,8 +65,6 @@ public class Looper implements Runnable{
 	public Looper() {
 		frame=new JFrame(title);
 		canvas=new Canvas();
-		new Display(scale*sWid,scale*sHei,frame,canvas,title);
-		System.out.println(canvas);
 		start();
 	}
 	
@@ -133,17 +131,18 @@ public class Looper implements Runnable{
 	public void update() {
 		switch(state) {
 		case MAIN_MENU:
-			
+			break;
 		case STORE:
-			
+			break;
 		case LOAD:
-			
+			break;
 		case HELP_MENU:
-			
+			break;
 		case GAME:
-			
+			cycler.update();
+			break;
 		case CREDITS:
-			
+			break;
 		}
 	}
 	public void draw() {

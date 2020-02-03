@@ -22,7 +22,7 @@ public class Player extends GObject{
 		
 	}
 	public void move() {
-		if()
+		
 	}
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.BLUE);

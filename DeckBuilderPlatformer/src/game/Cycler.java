@@ -3,6 +3,8 @@ package game;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import file.LevelLoader;
+
 /*
  * 
  * 
@@ -13,16 +15,19 @@ import java.util.ArrayList;
 public class Cycler {
 	
 	ArrayList<GObject> objs;
+	LevelLoader levLod;
 
 	public Cycler() {
 		init();
 	}
 	
 	public void init() {
+		levLod=new LevelLoader(this);
 		objs=new ArrayList<GObject>();
 		addObject(ID.BLOCK,32,32);
 		addObject(ID.PLAYER,32,64);
 		addObject(ID.BLOCK,64,64);
+		levLod.loadLevel("level1");
 	}
 	
 	public void update() {

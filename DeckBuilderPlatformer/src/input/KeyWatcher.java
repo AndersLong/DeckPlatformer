@@ -23,6 +23,7 @@ public class KeyWatcher implements KeyListener{
 		eightDown,
 		nineDown,
 		commaDown,
+		gravityAlreadySwitched,
 		enterDown;
 	
 	public KeyWatcher() {
@@ -118,6 +119,7 @@ public class KeyWatcher implements KeyListener{
 		}	
 		if(e.getKeyCode()==e.VK_SPACE) {
 			spaceKeyDown=false;
+			gravityAlreadySwitched=false;
 		}
 		if(e.getKeyCode()==e.VK_1) {
 			oneDown=false;

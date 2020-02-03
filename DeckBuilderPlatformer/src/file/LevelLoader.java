@@ -34,6 +34,9 @@ public class LevelLoader {
 					case 2:
 						cycler.addObject(ID.PLAYER, j*32, i*32);
 						break;
+					case 3:
+						cycler.addObject(ID.PORTAL, j*32, i*32);
+						break;
 						
 					}
 				}

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import game.Cycler;
 import input.Button;
+import input.KeyWatcher;
 import input.MouseWatcher;
 
 /*
@@ -39,6 +40,7 @@ public class Looper implements Runnable{
 		storeButton;
 					
 	private MouseWatcher mw;
+	private KeyWatcher kw;
 	private Cycler cycler;
 	private Canvas canvas;
 	private JFrame frame;
@@ -65,6 +67,7 @@ public class Looper implements Runnable{
 	public Looper() {
 		frame=new JFrame(title);
 		canvas=new Canvas();
+		new Display(sWid*scale,sHei*scale,frame,canvas,title);
 		start();
 	}
 	
@@ -100,7 +103,9 @@ public class Looper implements Runnable{
 							backButton,
 							loadButton,
 							storeButton);
+		kw=new KeyWatcher();
 		canvas.addMouseListener(mw);
+		canvas.addKeyListener(kw);
 		cycler=new Cycler();
 	}
 	

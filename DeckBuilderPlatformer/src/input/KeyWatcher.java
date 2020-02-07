@@ -12,6 +12,10 @@ public class KeyWatcher implements KeyListener{
 		upKeyDown,
 		downKeyDown,
 		spaceKeyDown,
+		wKeyDown,
+		aKeyDown,
+		sKeyDown,
+		dKeyDown,
 		zeroDown,
 		oneDown,
 		twoDown,
@@ -31,7 +35,10 @@ public class KeyWatcher implements KeyListener{
 		rightKeyDown=false;
 		upKeyDown=false;
 		downKeyDown=false;
-		spaceKeyDown=false;
+		wKeyDown=false;
+		aKeyDown=false;
+		sKeyDown=false;
+		dKeyDown=false;
 		zeroDown = false;
 		oneDown=false;
 		twoDown=false;
@@ -61,6 +68,18 @@ public class KeyWatcher implements KeyListener{
 		}
 		if(e.getKeyCode()==e.VK_RIGHT) {
 			rightKeyDown=true;
+		}
+		if(e.getKeyCode()==e.VK_W) {
+			wKeyDown=true;
+		}
+		if(e.getKeyCode()==e.VK_A) {
+			aKeyDown=true;
+		}
+		if(e.getKeyCode()==e.VK_S) {
+			sKeyDown=true;
+		}
+		if(e.getKeyCode()==e.VK_D) {
+			dKeyDown=true;
 		}
 		if(e.getKeyCode()==e.VK_SPACE) {
 			spaceKeyDown=true;
@@ -117,6 +136,18 @@ public class KeyWatcher implements KeyListener{
 		if(e.getKeyCode()==e.VK_RIGHT) {
 			rightKeyDown=false;
 		}	
+		if(e.getKeyCode()==e.VK_W) {
+			wKeyDown=false;
+		}
+		if(e.getKeyCode()==e.VK_A) {
+			aKeyDown=false;
+		}
+		if(e.getKeyCode()==e.VK_S) {
+			sKeyDown=false;
+		}
+		if(e.getKeyCode()==e.VK_D) {
+			dKeyDown=false;
+		}
 		if(e.getKeyCode()==e.VK_SPACE) {
 			spaceKeyDown=false;
 			gravityAlreadySwitched=false;

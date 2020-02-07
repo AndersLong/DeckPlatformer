@@ -15,6 +15,7 @@ import java.awt.Rectangle;
  */
 public abstract class GObject {
 	
+	protected Rectangle otherCol;
 	protected boolean lcol,rcol,ucol,dcol;
 	protected int x,y,w,h,xv,yv;
 	protected ID id;
@@ -121,6 +122,15 @@ public abstract class GObject {
 	public void setDcol(boolean dcol) {
 		this.dcol = dcol;
 	}
+
+	public Rectangle getOtherCol() {
+		return otherCol;
+	}
+
+	public void setOtherCol(Rectangle otherCol) {
+		this.otherCol = otherCol;
+	}
+	
 	
 	
 	

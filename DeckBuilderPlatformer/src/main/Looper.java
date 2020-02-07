@@ -48,7 +48,8 @@ public class Looper implements Runnable{
 	private String title="Decker";
 	
 	private boolean running;
-	private int sWid=320,sHei=320;	
+	public static int sWid=320,sHei=320;
+	public static long pauseTime=1000/60;
 	private int buttonWidth=sWid*scale/4;
 	private int buttonHeight=sHei*scale/8;
 	private int centeredButtonX=sWid*scale/2-buttonWidth/2;
@@ -107,6 +108,7 @@ public class Looper implements Runnable{
 		canvas.addMouseListener(mw);
 		canvas.addKeyListener(kw);
 		cycler=new Cycler();
+		
 	}
 	
 	public void start() {
@@ -202,7 +204,7 @@ public class Looper implements Runnable{
 	
 	public void pause() {
 		try {
-			thread.sleep(1000/60);
+			thread.sleep(pauseTime);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

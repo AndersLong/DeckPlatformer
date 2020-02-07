@@ -53,9 +53,7 @@ public class MouseWatcher implements MouseListener{
 			}
 			break;
 		case LOAD:
-			if(mouseClickInsideButton(e,backButton)) {
-				Looper.state=GAME_STATE.MAIN_MENU;
-			}
+			
 			break;
 		case HELP_MENU:
 			if(mouseClickInsideButton(e,backButton)) {

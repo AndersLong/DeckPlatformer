@@ -15,6 +15,15 @@ public class LevelLoader {
 	public LevelLoader(Cycler cycler) {
 		this.cycler=cycler;
 	}
+	public void loadLevelFromLoadScrn() {
+		try (Scanner s=new Scanner(new File("savefile.txt"))){
+			String level=s.nextLine();
+			s.close();
+			loadLevel(level);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void loadLevel(String level) {
 		try (Scanner s=new Scanner(new File("test.txt"))){
 			String line=s.nextLine();
@@ -36,6 +45,9 @@ public class LevelLoader {
 						break;
 					case 3:
 						cycler.addObject(ID.PORTAL, j*32, i*32);
+						break;
+					case 4:
+						cycler.addObject(ID.SPIKES, j*32, i*32);
 						break;
 						
 					}

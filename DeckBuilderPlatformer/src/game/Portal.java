@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import main.Looper;
 
@@ -15,6 +16,7 @@ public class Portal extends GObject{
 		super.y*=Looper.scale;
 		w*=Looper.scale;
 		h*=Looper.scale;
+		otherCol=new Rectangle(x+w/8,y+w/8,w/2,h/2);
 	}
 	public void update() {}
 

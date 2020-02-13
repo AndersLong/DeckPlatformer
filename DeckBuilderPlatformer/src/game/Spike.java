@@ -18,11 +18,6 @@ public class Spike extends GObject{
 		h*=Looper.scale;
 		otherCol=new Rectangle(x+w/8,y+w/8,w/2,h/2);
 	}
-
-	public void update() {
-		
-	}
-
 	
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.red);

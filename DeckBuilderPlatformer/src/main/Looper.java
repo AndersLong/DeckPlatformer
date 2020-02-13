@@ -7,6 +7,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import file.SaveFiler;
 import game.Cycler;
 import input.Button;
 import input.KeyWatcher;
@@ -46,6 +47,7 @@ public class Looper implements Runnable{
 	private JFrame frame;
 	private Thread thread;
 	private String title="Decker";
+	private SaveFiler sf;
 	
 	private boolean running;
 	public static int sWid=320,sHei=320;
@@ -73,6 +75,8 @@ public class Looper implements Runnable{
 	}
 	
 	public void init() {
+		sf=new SaveFiler();
+		cycler=new Cycler(sf);
 		state=GAME_STATE.MAIN_MENU;
 		gameButton=new Button("START",
 							centeredButtonX,
@@ -99,7 +103,8 @@ public class Looper implements Runnable{
 							20+3*buttonHeight+30,
 							buttonWidth,
 							buttonHeight);
-		mw=new MouseWatcher(gameButton,
+		mw=new MouseWatcher(cycler,
+							gameButton,
 							helpButton,
 							backButton,
 							loadButton,
@@ -107,7 +112,7 @@ public class Looper implements Runnable{
 		kw=new KeyWatcher();
 		canvas.addMouseListener(mw);
 		canvas.addKeyListener(kw);
-		cycler=new Cycler();
+		
 		
 	}
 	

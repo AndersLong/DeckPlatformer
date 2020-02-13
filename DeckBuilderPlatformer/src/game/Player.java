@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import input.KeyWatcher;
 import main.Looper;
 
-public class Player extends GObject{
+public class Player extends GObject implements Updateable{
 	int speed = 3;
 	int jumpSpeed=10;
 	public Player(int x, int y, ID id) {
@@ -18,13 +18,14 @@ public class Player extends GObject{
 		super.y*=Looper.scale;
 		w*=Looper.scale;
 		h*=Looper.scale;
-		otherCol=new Rectangle(x+w/8,y+w/8,w/2,h/2);
+		otherCol=new Rectangle(x,y,w,h);
 		speed*=Looper.scale;
 		jumpSpeed*=Looper.scale;
 
 	}
 	public void update() {
 		move();
+		//resetGrav();
 
 	}
 	public void move() {
@@ -105,6 +106,11 @@ public class Player extends GObject{
 		otherCol.x=x;
 		otherCol.y=y;
 
+	}
+	public void resetGrav() {
+		if(lcol||rcol||ucol||dcol) {
+			Cycler.canSwitchGravity=true;
+		}
 	}
 	public void draw(Graphics graphics) {
 		graphics.setColor(Color.BLUE);

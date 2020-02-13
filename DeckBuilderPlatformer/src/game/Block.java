@@ -16,9 +16,7 @@ public class Block extends GObject{
 		super.y*=Looper.scale;
 		w*=Looper.scale;
 		h*=Looper.scale;
-	}
-
-	public void update() {
+		otherCol=new Rectangle(x,y,w,h);
 	}
 
 	public void draw(Graphics graphics) {

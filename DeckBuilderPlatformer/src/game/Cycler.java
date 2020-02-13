@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import file.LevelLoader;
 import file.Music;
+import file.SaveFiler;
 import input.KeyWatcher;
 import main.Looper;
 
@@ -20,38 +21,41 @@ public class Cycler {
 
 	Music music;
 	ArrayList<GObject> objs;
+	ArrayList<Updateable> updateable;
 	LevelLoader levLod;
+	SaveFiler sf;
 	public static GRAVITY gravity;
 	String level;
 	String hint;
 	int gravityTimer;
+	public static boolean canSwitchGravity;
 
-	public Cycler() {
+	public Cycler(SaveFiler sf) {
+		this.sf=sf;		
 		init();
 	}
 
 	public void init() {
-		
+		level=sf.loadLevel();
 		gravity=GRAVITY.DOWN;
 		levLod=new LevelLoader(this);
 		objs=new ArrayList<GObject>();
-		level="level1";
+		updateable=new ArrayList<Updateable>();
 		hint="arrow keys to move";
-		levLod.loadLevel(level);
-//		music=new Music();
-//		music.setFile("megamanTheme.mp4");
-//		music.start();
+		music=new Music();
+		music.setFile("tune.wav");
+		music.loop();
 	}
 
 	public void reset() {
-
-	}
-
-	public void loadNextLevel(String level) {
+		canSwitchGravity=true;
 		objs.clear();
 		gravity=GRAVITY.DOWN;
 		levLod.loadLevel(level);
-		
+	}
+
+	public void loadNextLevel(String level) {
+		reset();		
 	}
 
 	/*
@@ -59,33 +63,39 @@ public class Cycler {
 	 */
 
 	public void update() {
-		for(GObject obj:objs) {
+		for(Updateable obj:updateable) {
 			obj.update();
 		}
 		collision();
 		gravity();
 	}
-	
+
 	public void gravity() {
-		if(KeyWatcher.wKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
-			Cycler.gravity=GRAVITY.UP;
-			Looper.pauseTime=5000/60;
-			gravityTimer=4;
-		}
-		if(KeyWatcher.aKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
-			Cycler.gravity=GRAVITY.LEFT;
-			Looper.pauseTime=5000/60;
-			gravityTimer=4;
-		}
-		if(KeyWatcher.sKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
-			Cycler.gravity=GRAVITY.DOWN;
-			Looper.pauseTime=5000/60;
-			gravityTimer=4;
-		}
-		if(KeyWatcher.dKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
-			Cycler.gravity=GRAVITY.RIGHT;
-			Looper.pauseTime=5000/60;
-			gravityTimer=4;
+		if(canSwitchGravity) {
+			if(KeyWatcher.wKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
+				Cycler.gravity=GRAVITY.UP;
+				Looper.pauseTime=5000/60;
+				gravityTimer=4;
+				canSwitchGravity=false;
+			}
+			if(KeyWatcher.aKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
+				Cycler.gravity=GRAVITY.LEFT;
+				Looper.pauseTime=5000/60;
+				gravityTimer=4;
+				canSwitchGravity=false;
+			}
+			if(KeyWatcher.sKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
+				Cycler.gravity=GRAVITY.DOWN;
+				Looper.pauseTime=5000/60;
+				gravityTimer=4;
+				canSwitchGravity=false;
+			}
+			if(KeyWatcher.dKeyDown&&!KeyWatcher.gravityAlreadySwitched) {
+				Cycler.gravity=GRAVITY.RIGHT;
+				Looper.pauseTime=5000/60;
+				gravityTimer=4;
+				canSwitchGravity=false;
+			}
 		}
 		if(gravityTimer==0) {
 			Looper.pauseTime=1000/60;
@@ -95,7 +105,7 @@ public class Cycler {
 
 	}
 	public void countDown() {
-		
+
 	}
 
 	public void draw(Graphics graphics) {
@@ -139,15 +149,18 @@ public class Cycler {
 				}else {
 					obj.setRcol(false);
 				}
-				if(touchingInGeneral(obj,ID.PORTAL)) {
+				if(rectsIntersect(obj,ID.PORTAL)) {
 					updateLevel();
 					loadNextLevel(level);
 					break;
 				}
-				if(RectsIntersect(obj,ID.SPIKES)) {
+				if(rectsIntersect(obj,ID.SPIKES)) {
 					loadNextLevel(level);
 					break;
-				}				
+				}
+				if(rectsIntersect(obj,ID.BLOCK)) {
+					canSwitchGravity=true;
+				}
 				if(outsideScrn(obj)) {
 					loadNextLevel(level);
 					break;
@@ -156,8 +169,8 @@ public class Cycler {
 			}
 		}
 	}
-	
-	public boolean RectsIntersect(GObject obj, ID id) {
+
+	public boolean rectsIntersect(GObject obj, ID id) {
 		for(GObject obj2: objs) {
 			if(obj2.getId()==id) {
 				if(obj.getOtherCol().intersects(obj2.getOtherCol())) {
@@ -175,9 +188,9 @@ public class Cycler {
 			return true;
 		}
 		return false;
-			
+
 	}
-	
+
 	/**
 	 * This function is responsible for updating the levels
 	 * using one main switch statement, it checks to see the current level, updates the
@@ -190,25 +203,31 @@ public class Cycler {
 		case "level1":
 			level="level2";
 			hint="up arrow can make you jump! That's pretty nifty";
+			sf.setLevel(level);
 			break;
 		case "level2":
 			level="level3";
 			hint="hmm, falling into that pit is probably pretty nasty";
+			sf.setLevel(level);
 			break;
 		case "level3":
 			level="level4";
 			hint="that's two pits! This game sure has a good difficulty curve";
+			sf.setLevel(level);
 			break;
 		case "level4":
 			level="level5";
 			hint="well. That's a game changer. I wonder what the 'W' key does?";
+			sf.setLevel(level);
 			break;
 		case "level5":
 			level="level6";
 			hint="hmmmm. maybe 'D' changes gravity too...";
+			sf.setLevel(level);
 		case "level6":
 			level="level7";
 			hint="I bet WASD set gravity up,left,down,and right";
+			sf.setLevel(level);
 			break;
 		}
 	}
@@ -244,7 +263,7 @@ public class Cycler {
 		}
 		return false;
 	}
-	
+
 
 	public boolean touching(GObject a,GObject b,String collider) {
 		switch(collider) {
@@ -291,6 +310,7 @@ public class Cycler {
 		}else if(id==ID.PLAYER) {
 			GObject player=new Player(x,y,id);
 			objs.add(player);
+			updateable.add((Updateable)player);
 		}else if(id==ID.PORTAL) {
 			GObject portal=new Portal(x,y,id);
 			objs.add(portal);
@@ -302,8 +322,8 @@ public class Cycler {
 	public void addObject(ID id,int x,int y) {
 		addObject(id,x,y,0,0);
 	}
-	public LevelLoader getLevLod() {
-		return levLod;
+	public void setLevel(String level) {
+		this.level=level;
 	}
 }
 

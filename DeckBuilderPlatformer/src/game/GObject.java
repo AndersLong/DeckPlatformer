@@ -32,7 +32,7 @@ public abstract class GObject {
 		this(x,y,0,0,id);
 	}
 	
-	public abstract void update();
+	//public abstract void update();
 	public abstract void draw(Graphics graphics);
 
 	public int getX() {

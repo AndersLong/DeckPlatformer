@@ -1,12 +1,9 @@
 package input;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JTextField;
-
+import game.Cycler;
 import main.GAME_STATE;
 import main.Looper;
 
@@ -19,16 +16,18 @@ public class MouseWatcher implements MouseListener{
 	loadButton,
 	storeButton;
 	public static boolean allowed=true;
+	private Cycler cycler;
 
 
 
 
-	public MouseWatcher(Button gameButton, 
+	public MouseWatcher(Cycler cycler,Button gameButton, 
 			Button helpButton, 
 			Button backButton, 
 			Button loadButton,
 			Button storeButton) {
 
+		this.cycler=cycler;
 		this.gameButton = gameButton;
 		this.helpButton = helpButton;
 		this.backButton = backButton;
@@ -40,13 +39,16 @@ public class MouseWatcher implements MouseListener{
 		switch(Looper.state) {
 		case MAIN_MENU:
 			if(mouseClickInsideButton(e,gameButton)) {
+				cycler.setLevel("level1");
+				cycler.reset();
 				Looper.state=GAME_STATE.GAME;
 			}
 			if(mouseClickInsideButton(e,helpButton)) {
 				Looper.state=GAME_STATE.HELP_MENU;
 			}
 			if(mouseClickInsideButton(e,loadButton)) {
-				Looper.state=GAME_STATE.LOAD;
+				Looper.state=GAME_STATE.GAME;
+				cycler.reset();
 			}
 			if(mouseClickInsideButton(e,storeButton)) {
 				Looper.state=GAME_STATE.STORE;
